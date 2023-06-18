@@ -1,20 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../../assets/css/productAdmin.css";
 import useProduct from "../../hooks/useProduct";
+import { useLocation } from "react-router-dom";
 
-function ProductAdmin() {
+function ProductAdminUpdate() {
   const [name, setName] = React.useState("");
   const [price, setPrice] = React.useState(1);
   const [quantity, setQuantity] = React.useState(1);
-  const [category, setCategory] = React.useState("");
+  const [category, setCategory] = React.useState("car");
   const [rating, setRating] = React.useState(5);
   const [description, setDescription] = React.useState("");
-  const [upload, setUpload] = React.useState([]);
+    const [upload, setUpload] = React.useState([]);
 
-  const { handleCreateProduct } = useProduct();
 
+  const { handleCreateProduct, handleUpdateProduct } = useProduct();
+  const location = useLocation();
+  const { productDetail } = location.state;
+
+console.log(name, price, quantity, category, rating, description, upload)
+console.log(productDetail)
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
+  
     setUpload((prevSelectedFiles) => [...prevSelectedFiles, ...files]);
   };
   const handleDelete = (index, event) => {
@@ -37,8 +44,17 @@ function ProductAdmin() {
     upload.forEach((file) => {
       formData.append("images", file);
     });
-    handleCreateProduct(formData);
+    handleUpdateProduct(productDetail._id,formData);
   };
+
+  useEffect(() => {
+    setName(productDetail.name);
+    setPrice(productDetail.price);
+    setQuantity(productDetail.quantity);
+    setCategory(productDetail.category);
+    setRating(productDetail.rating);
+    setDescription(productDetail.description);
+  }, [productDetail]);
 
   return (
     <div class="formbold-main-wrapper">
@@ -87,7 +103,7 @@ function ProductAdmin() {
                 id="quantity"
                 defaultValue={1}
                 class="formbold-form-input"
-                value={quantity}
+                value={productDetail.quantity ? productDetail.quantity : 1}
                 onChange={(e) => setQuantity(e.target.value)}
               />
             </div>
@@ -99,7 +115,7 @@ function ProductAdmin() {
                 class="formbold-form-input"
                 name="occupation"
                 id="occupation"
-                value={category}
+                value={productDetail.category ? productDetail.category : "car"}
                 onChange={(e) => setCategory(e.target.value)}
               >
                 <option value="car">Car</option>
@@ -122,7 +138,7 @@ function ProductAdmin() {
                 class="formbold-form-input formbold-w-45"
                 max={5}
                 min={1}
-                value={rating}
+                value={productDetail.rating ? productDetail.rating : 5}
                 onChange={(e) => setRating(e.target.value)}
               />
             </div>
@@ -138,7 +154,7 @@ function ProductAdmin() {
               id="description"
               class="formbold-form-input"
               placeholder="Description of product"
-              value={description}
+              value={productDetail.description ? productDetail.description : ""}
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
           </div>
@@ -161,7 +177,7 @@ function ProductAdmin() {
               {upload.map((file, index) => (
                 <li key={index}>
                   <img
-                    src={URL.createObjectURL(file)}
+                     src={URL.createObjectURL(file)}
                     alt={file.name}
                     style={{
                       width: "100px",
@@ -186,4 +202,4 @@ function ProductAdmin() {
   );
 }
 
-export default ProductAdmin;
+export default ProductAdminUpdate;

@@ -7,6 +7,7 @@ import {
   ScrollRestoration,
 } from "react-router-dom";
 import Header from "./layout/Header";
+import HeaderAdmin from "./layout/HeaderAdmin";
 import Footer from "./layout/Footer";
 import Homepage from './pages/Homepage';
 import Register from "./pages/Register";
@@ -16,22 +17,39 @@ import {Cart} from "./pages/Cart"
 import ErrorPage from "./pages/ErrorPage";
 import ProductAdmin from "./pages/admin/ProductAdmin";
 import ProductDashboard from "./pages/admin/ProductDashboard";
+import ProductAdminUpdate from "./pages/admin/ProductAdminUpdate";
+import OrderDashboard from "./pages/admin/OrderDashboard";
+import Order from "./pages/Order";
 
 const Layout = () => {
-  return (
-    <div>
-      <Header />
-      <ScrollRestoration />
-      <Outlet />
-      <Footer />
-    </div>
-  );
+  const is_Admin = localStorage.getItem("is_admin");
+  if(is_Admin){
+     return (
+       <div>
+         <HeaderAdmin />
+         <ScrollRestoration />
+         <Outlet />
+         <Footer />
+       </div>
+     );
+
+  }else{
+    return (
+      <div>
+        <Header />
+        <ScrollRestoration />
+        <Outlet />
+        <Footer />
+      </div>
+    );
+  }
+ 
 };
 
 const LayoutAdmin = () => {
   return (
     <div>
-      <Header />
+      <HeaderAdmin />
       <ScrollRestoration />
       <Outlet />
       <Footer />
@@ -56,27 +74,34 @@ const router = createBrowserRouter([
         path: "/cart",
         element: <Cart />,
       },
-      // {
-      //   path: "/login",
-      //   element: <Login />,
-      // },
+      {
+        path: "/order",
+        element: <Order />,
+      }
+     
     ],
   },
   {
     path: "/admin",
-    element: <LayoutAdmin />,
+    element: <Layout />,
     children: [
       {
         path: "/admin",
         element: <Test />,
       },
       {
-        path: "/admin/test",
+        path: "/admin/create-product",
         element: <ProductAdmin />,
       },
       {
         path: "/admin/product-dashboard",
         element: <ProductDashboard />,
+      },{
+        path: "/admin/update-product/:id",
+        element: <ProductAdminUpdate />,
+      },{
+        path: "/admin/order-dashboard",
+        element: <OrderDashboard />,
       }
     ],
   },

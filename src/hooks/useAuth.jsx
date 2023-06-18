@@ -3,9 +3,11 @@ import axiosInstance from "../utils/axios";
 import { POST_API } from "../utils/api";
 import { SET_USER, HANDLE_LOADING } from "../store/authSlice";
 import useAlert from "./useAlert";
+import { useNavigate } from "react-router-dom";
 
 export const useAuth = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { isLoading, isAuthenticated, user } = useSelector(
     (state) => state.auth
   );
@@ -52,24 +54,24 @@ export const useAuth = () => {
   };
 
   const handleRegister = async (data) => {
+    dispatch(HANDLE_LOADING(true));
+
     try {
       const res = await axiosInstance.post(POST_API().register, data);
-      console.log(res.data);
+      console.log(res.data.user);
       if (res.data.user) {
-        dispatch(SET_USER(res.data.user));
-
-        localStorage.setItem("accessToken", res.data.user.accessToken);
-        localStorage.setItem("username", res.data.user.username);
-        localStorage.setItem("email", res.data.user.email);
-        localStorage.setItem("user_id", res.data.user._id);
-        localStorage.setItem("is_admin", res.data.user.isAdmin);
+        // localStorage.setItem("accessToken", res.data.user.accessToken);
+        // localStorage.setItem("username", res.data.user.username);
+        // localStorage.setItem("email", res.data.user.email);
+        // localStorage.setItem("user_id", res.data.user._id);
+        // localStorage.setItem("is_admin", res.data.user.isAdmin);
+        enqueueSnackbar("Register Succesfully", { variant: "success" });
+        navigate("/login");
       }
-      if (res.data.user.isAdmin === true) {
-        window.location.href = "/admin";
-      } else {
-        window.location.href = "/";
-      }
+      dispatch(HANDLE_LOADING(false));
     } catch (error) {
+      dispatch(HANDLE_LOADING(false));
+      enqueueSnackbar("Register Fail", { variant: "error" });
       console.log(error);
     }
   };

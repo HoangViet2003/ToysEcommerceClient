@@ -1,41 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-// import { CartItem } from "../../components/CartItem";
 import cartBackground from "../assets/images/cartbackground.jpg";
 import { CartItem } from "../components/CartItem";
 import useCart from "../hooks/useCart";
+import useOrder from "../hooks/useOrder";
 import { enqueueSnackbar } from "notistack";
 import ErrorPage from "./ErrorPage";
+import { useLocation } from "react-router-dom";
+import { ProductDetail } from './ProductDetail';
 
 export const Cart = () => {
   const { cart, handleGetCart, totalAmount } = useCart();
+  const { handleCreateOrder } = useOrder();
   //calculate total price
 
-  //   const [totalAmount, setTotalAmount] = useState("");
-  //   const UserInfo = useSelector((state) => state.bazar.userInfo);
-  //   const [payNow, setPayNow] = useState(false);
-  //   useEffect(() => {
-  //     let price = 0;
-  //     productData.map((item) => {
-  //       price += item.price * item.quantity;
-  //       return price;
-  //     });
-  //     setTotalAmount(price);
-  //   }, [productData]);
 
-  //   const handleCheckout = () => {
-  //     if (UserInfo) {
-  //       setPayNow(true);
-  //     } else {
-  //       toast.error("please Sign In to Checkout");
-  //     }
-  //   };
+  //take product_id and quantity from cart
+  const dataOrder = cart.map((item) => {
+    return {
+      product_id: item.product_id,
+      quantity: item.quantity,
+    };
+  });
+
+  console.log(dataOrder)
 
   useEffect(() => {
     if (localStorage.getItem("accessToken") === null) {
       enqueueSnackbar("Please login to continue", { variant: "error" });
     }
-    handleGetCart(localStorage.getItem("user_id"));
+    handleGetCart();
   },[]);
 
   return (
@@ -72,6 +66,8 @@ export const Cart = () => {
               </p>
               <button
                 // onClick={handleCheckout}
+                onClick={() => handleCreateOrder(dataOrder)}
+
                 className="text-base text-white w-full py-3 mt-6 hover: bg-gray-800 duration-300"
               >
                 proceed to checkout

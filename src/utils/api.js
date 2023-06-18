@@ -4,7 +4,10 @@ const GET_API = ({ page, id, name }) => {
     getProductById: `/product/${id}`,
     searchProduct: `/product/search?name=${name}`,
     getCartByUserId: '/cart/getCart',
-    getAllProductsWithoutLimit: '/product/allproduct',
+    getAllProductsWithoutLimit: '/product/getallproductwithoutlimit',
+    getOrderById: "/order/getOrder",
+    getAllOrder: "/order/getAllOrder",
+
   };
 };
 
@@ -14,13 +17,15 @@ const POST_API = () => {
     login: "/auth/login",
     register: "/auth/register",
     addToCart: '/cart/addToCart',
+    createOrder: '/order/create',
   };
 };
 
-const UPDATE_API = ({id,product_id}) => {
+const UPDATE_API = (product_id) => {
   return {
-    updateProduct: `/product/update/${id}`,
+    updateProduct: `/product/update/${product_id}`,
     updateQuantity: `/cart/updateQuantity/${product_id}`,
+    confirmOrder: `/order/confirmOrder/${product_id}`,
   };
 };
 

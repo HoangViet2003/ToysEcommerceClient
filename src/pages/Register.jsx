@@ -12,7 +12,6 @@ function Register() {
     password: "",
   });
 
-  console.log(inputs);
 
   const { handleLogin, isLoading, handleRegister } = useAuth();
 

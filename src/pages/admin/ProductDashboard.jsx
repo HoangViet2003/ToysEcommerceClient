@@ -1,27 +1,53 @@
 import React from "react";
 import DataTable from "react-data-table-component";
 import useProduct from "../../hooks/useProduct";
+import { useNavigate } from "react-router-dom";
+
 
 function ProductDashboard() {
-  const { product, handleGetProductWithoutLimit } = useProduct();
+  const { product, handleGetProductWithoutLimit,handleDeleteProduct } = useProduct();
+
+    const navigate = useNavigate();
+
+    const handleDetails = (id) => {
+      navigate(`/admin/update-product/${id}`, {
+        state: {
+          productDetail: product.find((item) => item._id === id),
+        },
+      });
+      // console.log(product.find((item) => item._id === id))
+    };
+ 
 
   const columns = [
     {
       name: "ID",
-        selector: (row) => row._id,
+      selector: (row) => row._id,
+      sortable: true,
     },
     {
       name: "Name",
-      selector: (row) => row.name
+      selector: (row) => row.name,
+      sortable: true,
     },
     {
       name: "Price",
       selector: (row) => row.price,
+      sortable: true,
     },
     {
-        name: "Quantity",
-        selector: (row) => row.quantity,
-    }
+      name: "Quantity",
+      selector: (row) => row.quantity,
+      sortable: true,
+    },
+    {
+      name: "Action",
+      cell: (row) => <button onClick={() => handleDetails(row._id)}>Edit</button>,
+    },
+    {
+      name: "Action",
+      cell: (row) => <button onClick={() => handleDeleteProduct(row._id)}>Delete</button>,
+    },
   ];
 
 
@@ -52,7 +78,7 @@ function ProductDashboard() {
 
   console.log(product);
   return (
-    <div style={{margin:"30px" ,border:"1px",marginLeft:"100px"}}>
+    <div style={{ margin: "30px", border: "1px", marginLeft: "100px" }}>
       <DataTable
         columns={columns}
         data={product}
@@ -61,6 +87,7 @@ function ProductDashboard() {
         pointerOnHover
         pagination
         paginationPerPage={5}
+      
       />
     </div>
   );

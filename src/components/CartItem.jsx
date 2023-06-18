@@ -54,7 +54,7 @@ const handleDecrementQuantity = (product_id, itemQuantity) => {
                         className="text-xl text-gray-600 hover:text-red-600 cursor-pointer duration-300"
                       />
                       <img
-                        src={`http://localhost:8000/images/${item.images[0]}`}
+                        src={`https://drippyecommerce.onrender.com/images/${item.images[0]}`}
                         className="w-32 h-32 object-cover"
                         alt=""
                       />

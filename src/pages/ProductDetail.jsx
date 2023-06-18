@@ -28,10 +28,7 @@ export const ProductDetail = () => {
         quantity:baseQty
     }
 
-    const user_id = localStorage.getItem("user_id");
 
-
-    const {id} = useParams();
 
 
 
@@ -42,7 +39,7 @@ export const ProductDetail = () => {
         <div className="w-2/5 relative">
           <img
             className="w-full h-[550px] object-cover"
-            src={`http://localhost:8000/images/${
+            src={`https://drippyecommerce.onrender.com/images/${
               productDetail.images[0]
                 ? productDetail.images[0]
                 : "https://image.lexica.art/md2/fcda0b2a-edf8-4d28-89d0-7fdd341d6078"
@@ -88,14 +85,14 @@ export const ProductDetail = () => {
               <p className="text-base text-black">Quantity</p>
               <div className="flex items-center gap-4 text-sm font-semibold">
                 <button
-                    onClick={() => setBaseQty(baseQty > 1 ? baseQty - 1 : 1)}
+                  onClick={() => setBaseQty(baseQty > 1 ? baseQty - 1 : 1)}
                   className="border text-black h-5 font-normal text-1g flex items-center justify-center px-2 hover:bg-gray-700 hover:text-white cursor-pointer py-3 duration-300 active:bg-black"
                 >
                   -
                 </button>
                 <span>{baseQty}</span>
                 <button
-                    onClick={() => setBaseQty(baseQty + 1)}
+                  onClick={() => setBaseQty(baseQty + 1)}
                   className="border h-5 text-black font-normal text-1g flex items-center justify-center px-2 hover:bg-gray-700 hover:text-white cursor-pointer py-3 duration-300 active:bg-black"
                 >
                   +

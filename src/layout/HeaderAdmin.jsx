@@ -4,19 +4,19 @@ import Logo from "../assets/images/logo.png";
 import Setting from "../assets/images/settings.png";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import useCart from "../hooks/useCart";
+import { enqueueSnackbar } from "notistack";
 
-function Header() {
+function HeaderAdmin() {
   const { cart, handleGetCart } = useCart();
 
-  const handleLogOut = () => {
-          localStorage.removeItem("accessToken");
-          localStorage.removeItem("username");
-          localStorage.removeItem("email");
-          localStorage.removeItem("user_id");
-          localStorage.removeItem("is_admin");
-   
-    window.location.reload();
-  }
+    const handleLogOut = () => {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("username");
+      localStorage.removeItem("email");
+      localStorage.removeItem("user_id");
+      localStorage.removeItem("is_admin");
+        enqueueSnackbar("Logout Succesfully", { variant: "success" });
+    };
 
   useEffect(() => {
     handleGetCart(localStorage.getItem("user_id"));
@@ -38,12 +38,12 @@ function Header() {
         </Link>
         <div className="flex gap-5 items-center">
           <ul className="flex items-center gap-8 cursor-pointer">
-            <Link to={"/"}>
+            <Link to={"/admin/product-dashboard"}>
               <li className="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300">
                 Home
               </li>
             </Link>
-            <Link to={"/order"}>
+            <Link to={"/admin/order-dashboard"}>
               <li className="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300">
                 Order
               </li>
@@ -53,7 +53,6 @@ function Header() {
                 Login
               </li>
             </Link>
-
             <Link to={"/"}>
               <li className="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300">
                 <a onClick={handleLogOut}>Logout</a>
@@ -77,4 +76,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default HeaderAdmin;

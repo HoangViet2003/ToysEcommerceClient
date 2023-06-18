@@ -21,7 +21,7 @@ function ProductCard({ product }) {
         <img
           onClick={handleDetails}
           className=" h-full w-full object-cover group-hover:scale-110 duration-500"
-          src={`http://localhost:8000/images/${product.images[0]}`}
+          src={`https://drippyecommerce.onrender.com/images/${product.images[0]}`}
           alt=""
         />
       </div>
