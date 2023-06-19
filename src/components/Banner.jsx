@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import Banner1 from "../assets/images/banner-1.jpg";
+import Banner2 from "../assets/images/banner2.jpg";
+import Banner3 from "../assets/images/banner3.jpg";
+
 
 export const Banner = () => {
   const data = [
@@ -30,7 +34,7 @@ export const Banner = () => {
           <img
             className="w-screen h-full object-cover"
             loading="priority"
-            src={data[0]}
+            src={Banner3}
             alt=""
           />
           <img className="w-screen h-full object-cover" src={data[1]} alt="" />

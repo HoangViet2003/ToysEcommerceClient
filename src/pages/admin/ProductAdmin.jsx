@@ -1,6 +1,7 @@
 import React from "react";
 import "../../assets/css/productAdmin.css";
 import useProduct from "../../hooks/useProduct";
+import Loading from "../../components/Loading";
 
 function ProductAdmin() {
   const [name, setName] = React.useState("");
@@ -11,7 +12,7 @@ function ProductAdmin() {
   const [description, setDescription] = React.useState("");
   const [upload, setUpload] = React.useState([]);
 
-  const { handleCreateProduct } = useProduct();
+  const { isLoading,handleCreateProduct } = useProduct();
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
@@ -42,6 +43,8 @@ function ProductAdmin() {
 
   return (
     <div class="formbold-main-wrapper">
+      {isLoading && <Loading />}
+
       <div class="formbold-form-wrapper">
         <form>
           <div class="formbold-input-flex">

@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import DataTable from "react-data-table-component";
 import { useOrder } from './../hooks/useOrder';
+import isLoading from "./../components/Loading";
+import Loading from "./../components/Loading";
 
 function Order() {
-  const { order, handleGetOrderById, } = useOrder();
+  const { order, handleGetOrderById,isLoading } = useOrder();
 
   
 
@@ -111,6 +113,7 @@ function Order() {
   console.log(order);
   return (
     <div style={{ margin: "30px", border: "1px", marginLeft: "100px" }}>
+      {isLoading && <Loading/>}
       <DataTable
         columns={columns}
         data={order}

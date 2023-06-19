@@ -7,22 +7,25 @@ import useCart from "../hooks/useCart";
 
 function Header() {
   const { cart, handleGetCart } = useCart();
+  const isAdmin = localStorage.getItem("is_admin");
+  console.log("isAdmin", isAdmin);
 
   const handleLogOut = () => {
-          localStorage.removeItem("accessToken");
-          localStorage.removeItem("username");
-          localStorage.removeItem("email");
-          localStorage.removeItem("user_id");
-          localStorage.removeItem("is_admin");
-   
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("username");
+    localStorage.removeItem("email");
+    localStorage.removeItem("user_id");
+    localStorage.removeItem("is_admin");
+
     window.location.reload();
-  }
+  };
 
   useEffect(() => {
     handleGetCart(localStorage.getItem("user_id"));
   }, []);
 
-  // },[cart.length]);
+  useEffect(() => {}, [isAdmin]);
+
   return (
     <div className="z-50 w-full h-30 bg-white border-b-[1px] z-index-1 sticky top-0 border-b-gray-800 font-titleFont ">
       <div className="max-w-screen-xl h-full mx-auto flex items-center justify-between">
@@ -36,42 +39,83 @@ function Header() {
             />
           </div>
         </Link>
-        <div className="flex gap-5 items-center">
-          <ul className="flex items-center gap-8 cursor-pointer">
-            <Link to={"/"}>
-              <li className="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300">
-                Home
-              </li>
-            </Link>
-            <Link to={"/order"}>
-              <li className="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300">
-                Order
-              </li>
+        {isAdmin == true ? (
+          <div className="flex gap-5 items-center">
+            <ul className="flex items-center gap-8 cursor-pointer">
+              <Link to={"/admin/product-dashboard"}>
+                <li className="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300">
+                  Product
+                </li>
+              </Link>
+              <Link to={"/admin/create-product"}>
+                <li className="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300">
+                  Create Product
+                </li>
+              </Link>
+              <Link to={"/admin/order-dashboard"}>
+                <li className="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300">
+                  Order
+                </li>
+              </Link>
+              <Link to={"/login"}>
+                <li className="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300">
+                  Login
+                </li>
+              </Link>
+              <Link to={"/"}>
+                <li className="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300">
+                  <a onClick={handleLogOut}>Logout</a>
+                </li>
+              </Link>
+            </ul>
+
+            <Link to="/cart">
+              <div className="cursor-pointer relative">
+                <ShoppingCartIcon />
+              </div>
             </Link>
             <Link to={"/login"}>
-              <li className="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300">
-                Login
-              </li>
+              <img className="w-8 h-8 round-full" src={Setting} alt="" />
             </Link>
+            {/* {UserInfo && <p>{UserInfo.name}</p>} */}
+          </div>
+        ) : (
+          <div className="flex gap-5 items-center">
+            <ul className="flex items-center gap-8 cursor-pointer">
+              <Link to={"/"}>
+                <li className="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300">
+                  Home
+                </li>
+              </Link>
+              <Link to={"/order"}>
+                <li className="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300">
+                  Order
+                </li>
+              </Link>
+              <Link to={"/login"}>
+                <li className="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300">
+                  Login
+                </li>
+              </Link>
 
-            <Link to={"/"}>
-              <li className="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300">
-                <a onClick={handleLogOut}>Logout</a>
-              </li>
+              <Link to={"/"}>
+                <li className="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300">
+                  <a onClick={handleLogOut}>Logout</a>
+                </li>
+              </Link>
+            </ul>
+
+            <Link to="/cart">
+              <div className="cursor-pointer relative">
+                <ShoppingCartIcon />
+              </div>
             </Link>
-          </ul>
-
-          <Link to="/cart">
-            <div className="cursor-pointer relative">
-              <ShoppingCartIcon />
-              <span className="abslute top-2 left-0">{cart.length}</span>
-            </div>
-          </Link>
-          <Link to={"/login"}>
-            <img className="w-8 h-8 round-full" src={Setting} alt="" />
-          </Link>
-          {/* {UserInfo && <p>{UserInfo.name}</p>} */}
-        </div>
+            <Link to={"/login"}>
+              <img className="w-8 h-8 round-full" src={Setting} alt="" />
+            </Link>
+            {/* {UserInfo && <p>{UserInfo.name}</p>} */}
+          </div>
+        )}
       </div>
     </div>
   );

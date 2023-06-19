@@ -94,13 +94,13 @@ export const useCart = () => {
     }
   };
 
-  const handleUpdateQuantity = async (product_id, data) => {
+  const handleUpdateQuantity = async (product_id, itemQuantity) => {
     dispatch(HANDLE_LOADING(true));
 
     try {
       await axiosInstance
-        .put(UPDATE_API({ product_id: product_id }).updateQuantity, {
-          quantity: data,
+        .put(UPDATE_API(product_id).updateQuantity, {
+          quantity: itemQuantity,
         })
         .then((res) => {
           handleGetCart();

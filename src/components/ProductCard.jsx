@@ -2,10 +2,11 @@ import React from "react";
 import "../assets/css/button.css";
 import { useNavigate } from "react-router-dom";
 import useProduct from "../hooks/useProduct";
+import useCart from "../hooks/useCart";
 
 function ProductCard({ product }) {
   const navigate = useNavigate();
-  // const { handleGetProductById, productDetail } = useProduct();
+  const { handleAddToCart } = useCart();
 
   const handleDetails = () => {
     navigate(`/product/${product._id}`, {
@@ -14,6 +15,11 @@ function ProductCard({ product }) {
       },
     });
   };
+
+  const data = {
+    product_id: product._id,
+    quantity: 1,
+  }
 
   return (
     <div className="group relative">
@@ -45,7 +51,7 @@ function ProductCard({ product }) {
           {/* <button className="bg-light-gray text-blue-600 hover:text-blue-400">
             add To Cart
           </button> */}
-          <button class="button">
+          <button class="button" onClick={() => handleAddToCart(data)}>
             <span>Add to cart</span>
             <svg
               fill="#fff"

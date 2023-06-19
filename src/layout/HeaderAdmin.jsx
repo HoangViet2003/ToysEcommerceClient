@@ -19,7 +19,7 @@ function HeaderAdmin() {
     };
 
   useEffect(() => {
-    handleGetCart(localStorage.getItem("user_id"));
+    handleGetCart();
   }, []);
 
   // },[cart.length]);
@@ -43,6 +43,11 @@ function HeaderAdmin() {
                 Home
               </li>
             </Link>
+            <Link to={"/admin/create-product"}>
+              <li className="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300">
+                Create Product
+              </li>
+            </Link>
             <Link to={"/admin/order-dashboard"}>
               <li className="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300">
                 Order
@@ -63,7 +68,7 @@ function HeaderAdmin() {
           <Link to="/cart">
             <div className="cursor-pointer relative">
               <ShoppingCartIcon />
-              <span className="abslute top-2 left-0">{cart.length}</span>
+             
             </div>
           </Link>
           <Link to={"/login"}>

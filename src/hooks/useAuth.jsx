@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 export const useAuth = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isLoading, isAuthenticated, user } = useSelector(
+  const { isLoading, isAuthenticated, user, is_admin } = useSelector(
     (state) => state.auth
   );
   const { enqueueSnackbar } = useAlert();
@@ -31,9 +31,9 @@ export const useAuth = () => {
           localStorage.setItem("is_admin", res.data.user.isAdmin);
         }
 
-        if (res.data.user.isAdmin === true) {
+        if (res.data.user.isAdmin) {
           enqueueSnackbar("Login Succesfully", { variant: "success" });
-          window.location.href = "/admin";
+          window.location.href = "/admin/product-dashboard";
         } else {
           enqueueSnackbar("Login Succesfully", {
             variant: "success",
@@ -59,15 +59,15 @@ export const useAuth = () => {
     try {
       const res = await axiosInstance.post(POST_API().register, data);
       console.log(res.data.user);
-      if (res.data.user) {
-        // localStorage.setItem("accessToken", res.data.user.accessToken);
-        // localStorage.setItem("username", res.data.user.username);
-        // localStorage.setItem("email", res.data.user.email);
-        // localStorage.setItem("user_id", res.data.user._id);
-        // localStorage.setItem("is_admin", res.data.user.isAdmin);
-        enqueueSnackbar("Register Succesfully", { variant: "success" });
-        navigate("/login");
-      }
+      // if (res.data.user) {
+      //   // localStorage.setItem("accessToken", res.data.user.accessToken);
+      //   // localStorage.setItem("username", res.data.user.username);
+      //   // localStorage.setItem("email", res.data.user.email);
+      //   // localStorage.setItem("user_id", res.data.user._id);
+      //   // localStorage.setItem("is_admin", res.data.user.isAdmin);
+      // }
+      enqueueSnackbar("Register Succesfully", { variant: "success" });
+      navigate("/login");
       dispatch(HANDLE_LOADING(false));
     } catch (error) {
       dispatch(HANDLE_LOADING(false));
