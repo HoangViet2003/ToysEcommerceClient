@@ -66,7 +66,7 @@ export const useCart = () => {
           console.log(res);
           console.log(product_id);
           dispatch(DELETE_PRODUCT_FROM_CART(product_id));
-          handleGetCart(localStorage.getItem("user_id"));
+          handleGetCart();
         });
       dispatch(HANDLE_LOADING(false));
     } catch (err) {

@@ -18,8 +18,8 @@ export const Cart = () => {
   //take product_id and quantity from cart
   const dataOrder = cart.map((item) => {
     return {
-      product_id: item.product_id,
-      quantity: item.quantity,
+    
+      total: totalAmount,
     };
   });
 
@@ -42,6 +42,7 @@ export const Cart = () => {
             className="w-full h-60 object-cover"
             src={cartBackground}
             alt="cartImg"
+            loading="lazy"
           />
 
           <div className="max-w-screen-xl mx-auto py-20 flex">
@@ -66,7 +67,7 @@ export const Cart = () => {
               </p>
               <button
                 // onClick={handleCheckout}
-                onClick={() => handleCreateOrder(dataOrder)}
+                onClick={() => handleCreateOrder(totalAmount)}
 
                 className="text-base text-white w-full py-3 mt-6 hover: bg-gray-800 duration-300"
               >

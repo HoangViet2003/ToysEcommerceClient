@@ -5,9 +5,10 @@ import Setting from "../assets/images/settings.png";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 function Header() {
-  const isAdmin = localStorage.getItem("is_admin");
+  var isAdmin = localStorage.getItem("is_admin");
   const accessToken = localStorage.getItem("accessToken");
   console.log("isAdmin", isAdmin);
+  console.log("isAdminlocal", localStorage.getItem("is_admin"));
 
   const handleLogOut = () => {
     localStorage.removeItem("accessToken");
@@ -20,7 +21,7 @@ function Header() {
   };
 
   useEffect(() => {}, [
-    accessToken,isAdmin
+    accessToken
   ])
 
 
@@ -37,7 +38,7 @@ function Header() {
             />
           </div>
         </Link>
-        {isAdmin == true ? (
+        {isAdmin == "true" ? (
           <div className="flex gap-5 items-center">
             <ul className="flex items-center gap-8 cursor-pointer">
               <Link to={"/product-dashboard"}>
@@ -50,7 +51,7 @@ function Header() {
                   Create Product
                 </li>
               </Link>
-              <Link to={"order-dashboard"}>
+              <Link to={"/order-dashboard"}>
                 <li className="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300">
                   Order
                 </li>
@@ -103,7 +104,7 @@ function Header() {
               </Link>
             </ul>
 
-            <Link to="/cart">
+            <Link to={"/cart"}>
               <div className="cursor-pointer relative">
                 <ShoppingCartIcon />
               </div>

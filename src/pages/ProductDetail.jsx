@@ -45,6 +45,7 @@ export const ProductDetail = () => {
                 : "https://image.lexica.art/md2/fcda0b2a-edf8-4d28-89d0-7fdd341d6078"
             }`}
             alt=""
+            loading="lazy"
           />
           {/* <div className="w-full h-[550px] object-cover" style={{backgroundImage: `url(${product.images[0]})`}}></div> */}
           <div className="absolute top-2 right-2">
@@ -119,8 +120,8 @@ export const ProductDetail = () => {
             </button>
           </div>
           <p className="text-base text-gray-500">
-            Category:
-            <span className="font-medium capitalize">category</span>
+            Avaiable:
+            <span className="font-medium capitalize">{productDetail.quantity}</span>
           </p>
         </div>
       </div>

@@ -36,16 +36,7 @@ function App() {
     );
   };
 
-  const LayoutAdmin = () => {
-    return (
-      <div>
-        <HeaderAdmin />
-        <ScrollRestoration />
-        <Outlet />
-        <Footer />
-      </div>
-    );
-  };
+
 
   const router = createBrowserRouter([
     {

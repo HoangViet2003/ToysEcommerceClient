@@ -3,10 +3,12 @@ import axiosInstance from "../utils/axios";
 import { POST_API, GET_API, DELETE_API, UPDATE_API } from "../utils/api";
 import { HANDLE_SET_ORDER, HANDLE_LOADING } from "../store/orderSlice";
 import { enqueueSnackbar } from "notistack";
+import useCart from "./useCart";
 
 export const useOrder = () => {
   const dispatch = useDispatch();
   const { isLoading, order } = useSelector((state) => state.order);
+  const {handleDeleteAllProductFromCart,handleGetCart} = useCart();
 
 
   const handleGetOrder = async () => {
@@ -38,14 +40,17 @@ export const useOrder = () => {
     }
   }
 
-  const handleCreateOrder = async (data) => {
+  const handleCreateOrder = async (totalAmount) => {
     dispatch(HANDLE_LOADING(true));
     try{
-        const res = await axiosInstance.post(POST_API().createOrder, data);
+        const res = await axiosInstance.post(POST_API().createOrder, {total:totalAmount});
         if(res.data){
+          handleDeleteAllProductFromCart()
+        await  handleGetCart()
             enqueueSnackbar("Order successfully", {
                 variant: "success",
               });
+            
         }
         dispatch(HANDLE_LOADING(false));
     }catch(err){
