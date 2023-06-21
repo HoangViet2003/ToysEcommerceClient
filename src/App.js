@@ -23,13 +23,8 @@ import React, { useEffect } from "react";
 import useAuth from "./hooks/useAuth";
 
 function App() {
-  const is_Admin = localStorage.getItem("is_admin");
 
   const Layout = () => {
-    // console.log(localStorage.getItem("is_admin"));
-    // if (is_Admin) {
-    //   return <LayoutAdmin />;
-    // }
 
     return (
       <div>
@@ -73,12 +68,6 @@ function App() {
           path: "/order",
           element: <Order />,
         },
-      ],
-    },
-    {
-      path: "/admin",
-      element: <Layout />,
-      children: [
         {
           path: "/admin",
           element: <Test />,
@@ -99,22 +88,22 @@ function App() {
           path: "/admin/order-dashboard",
           element: <OrderDashboard />,
         },
+        {
+          path: "/login",
+          element: <Login />,
+        },
+        {
+          path: "/register",
+          element: <Register />,
+        },
+        {
+          path: "/error",
+          element: <ErrorPage />,
+        },
       ],
-    },
-    {
-      path: "/login",
-      element: <Login />,
-    },
-    {
-      path: "/register",
-      element: <Register />,
-    },
-    {
-      path: "/error",
-      element: <ErrorPage />,
-    },
+    }
   ]);
-  useEffect(() => {}, [is_Admin]);
+
   return (
     <div className="App">
       <RouterProvider router={router} />
