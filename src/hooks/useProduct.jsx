@@ -90,7 +90,7 @@ export const useProduct = () => {
         headers: { "Content-Type": "multipart/form-data" },
       });
       if (res.data) {
-        window.location.href = "/admin/product-dashboard";
+        window.location.href = "/product-dashboard";
 
         enqueueSnackbar("Create product successfully", { variant: "success" });
         console.log(res.data);
@@ -114,7 +114,7 @@ export const useProduct = () => {
         }
       );
       if (res.data) {
-        navigate("/admin/product-dashboard");
+        navigate("/product-dashboard");
         enqueueSnackbar("Update product successfully", { variant: "success" });
         console.log(res.data);
       }

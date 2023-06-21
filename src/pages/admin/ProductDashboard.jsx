@@ -10,7 +10,7 @@ function ProductDashboard() {
     const navigate = useNavigate();
 
     const handleDetails = (id) => {
-      navigate(`/admin/update-product/${id}`, {
+      navigate(`/update-product/${id}`, {
         state: {
           productDetail: product.find((item) => item._id === id),
         },
