@@ -3,11 +3,10 @@ import { Link } from "react-router-dom";
 import Logo from "../assets/images/logo.png";
 import Setting from "../assets/images/settings.png";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import useCart from "../hooks/useCart";
 
 function Header() {
-  const { cart, handleGetCart } = useCart();
   const isAdmin = localStorage.getItem("is_admin");
+  const accessToken = localStorage.getItem("accessToken");
   console.log("isAdmin", isAdmin);
 
   const handleLogOut = () => {
@@ -17,14 +16,13 @@ function Header() {
     localStorage.removeItem("user_id");
     localStorage.removeItem("is_admin");
 
-    window.location.reload();
+    window.location.href = "/";
   };
 
-  useEffect(() => {
-    handleGetCart(localStorage.getItem("user_id"));
-  }, []);
+  useEffect(() => {}, [
+    accessToken,isAdmin
+  ])
 
-  useEffect(() => {}, [isAdmin]);
 
   return (
     <div className="z-50 w-full h-30 bg-white border-b-[1px] z-index-1 sticky top-0 border-b-gray-800 font-titleFont ">
@@ -52,7 +50,7 @@ function Header() {
                   Create Product
                 </li>
               </Link>
-              <Link to={"/order-dashboard"}>
+              <Link to={"order-dashboard"}>
                 <li className="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300">
                   Order
                 </li>
