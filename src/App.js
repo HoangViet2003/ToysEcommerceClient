@@ -73,22 +73,25 @@ function App() {
           element: <Test />,
         },
         {
-          path: "/admin/create-product",
+          path: "/create-product",
           element: <ProductAdmin />,
         },
         {
-          path: "/admin/product-dashboard",
+          path: "/product-dashboard",
           element: <ProductDashboard />,
         },
         {
-          path: "/admin/update-product/:id",
+          path: "/update-product/:id",
           element: <ProductAdminUpdate />,
         },
         {
-          path: "/admin/order-dashboard",
+          path: "/order-dashboard",
           element: <OrderDashboard />,
         },
-        {
+       
+      ],
+    },
+     {
           path: "/login",
           element: <Login />,
         },
@@ -100,8 +103,6 @@ function App() {
           path: "/error",
           element: <ErrorPage />,
         },
-      ],
-    }
   ]);
 
   return (

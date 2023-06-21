@@ -33,13 +33,12 @@ export const useAuth = () => {
 
         if (res.data.user.isAdmin) {
           enqueueSnackbar("Login Succesfully", { variant: "success" });
-          window.location.href = "/admin/product-dashboard";
+          navigate("/product-dashboard");
         } else {
           enqueueSnackbar("Login Succesfully", {
             variant: "success",
           });
-
-          window.location.href = "/";
+          navigate("/");
         }
       } else {
         enqueueSnackbar("Login Fail", { variant: "error" });
