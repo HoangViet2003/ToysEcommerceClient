@@ -4,11 +4,14 @@ import { useNavigate } from "react-router-dom";
 import useOrder from "../../hooks/useOrder";
 
 function OrderDashboard() {
-  const { order, handleGetOrder,handleConfirmOrder } = useOrder();
+  const { order, handleGetOrder,handleConfirmOrder,handleGetOrderByTime,handleSearchOrder } = useOrder();
 
   const navigate = useNavigate();
 
+  const [startDate, setStartDate] = useState(new Date());
+  const [keyword, setKeyword] = useState("")
 
+console.log(keyword)
 
   const columns = [
     {
@@ -129,9 +132,13 @@ const expandableRowExpanded = (row) => {
 
 
 
+
   console.log(order);
   return (
     <div style={{ margin: "30px", border: "1px", marginLeft: "100px" }}>
+      <input type="text" value={keyword} onChange={(e) => setKeyword(e.target.value)} style={{border:"1px"}}/>
+      <button onClick={ () => handleSearchOrder(keyword)}>Filter</button>
+
       <DataTable
         columns={columns}
         data={order}

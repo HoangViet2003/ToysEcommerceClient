@@ -1,4 +1,4 @@
-const GET_API = ({ page, id, name }) => {
+const GET_API = ({ page, id, name,time,keyword }) => {
   return {
     getAllProducts: `/product/allproduct?page=${page}`,
     getProductById: `/product/${id}`,
@@ -7,6 +7,8 @@ const GET_API = ({ page, id, name }) => {
     getAllProductsWithoutLimit: '/product/getallproductwithoutlimit',
     getOrderById: "/order/getOrder",
     getAllOrder: "/order/getAllOrder",
+    getOrderByTime: `/order/getOrderByTime?date=${time}`,
+    searchOrder: `/order/searchOrder`,
 
   };
 };
