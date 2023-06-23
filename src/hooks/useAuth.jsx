@@ -33,7 +33,7 @@ export const useAuth = () => {
 
         if (res.data.user.isAdmin) {
           enqueueSnackbar("Login Succesfully", { variant: "success" });
-          navigate("/product-dashboard");
+          navigate("/products-dashboard");
         } else {
           enqueueSnackbar("Login Succesfully", {
             variant: "success",

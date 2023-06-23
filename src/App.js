@@ -68,7 +68,7 @@ function App() {
           element: <ProductAdmin />,
         },
         {
-          path: "/product-dashboard",
+          path: "/products-dashboard",
           element: <ProductDashboard />,
         },
         {

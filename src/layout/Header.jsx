@@ -41,7 +41,7 @@ function Header() {
         {isAdmin == "true" ? (
           <div className="flex gap-5 items-center">
             <ul className="flex items-center gap-8 cursor-pointer">
-              <Link to={"/product-dashboard"}>
+              <Link to={"/products-dashboard"}>
                 <li className="text-base text-black font-bold hover:text-orange-900 hover:underline underline-offset-2 decoration-[1px] cursor-pointer duration-300">
                   Product
                 </li>

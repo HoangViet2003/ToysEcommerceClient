@@ -43,7 +43,6 @@ function ProductAdmin() {
 
   return (
     <div class="formbold-main-wrapper">
-      {isLoading && <Loading />}
 
       <div class="formbold-form-wrapper">
         <form>
